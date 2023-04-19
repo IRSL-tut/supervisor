@@ -497,8 +497,13 @@ class StatusView(MeldView):
 
         data = []
         for groupname, processname in processnames:
-            actions = self.actions_for_process(
-                supervisord.process_groups[groupname].processes[processname])
+            pc = supervisord.process_groups[groupname].processes[processname]
+            actions = self.actions_for_process(pc)
+
+            lk_url = pc.config.link_description
+            if lk_url is None:
+                lk_url = 'None'
+
             sent_name = make_namespec(groupname, processname)
             info = rpcinterface.supervisor.getProcessInfo(sent_name)
             data.append({
@@ -508,6 +513,7 @@ class StatusView(MeldView):
                 'actions':actions,
                 'state':info['state'],
                 'description':info['description'],
+                'linkurl':lk_url,
                 })
 
         root = self.clone()
@@ -535,6 +541,11 @@ class StatusView(MeldView):
                 anchor.attributes(href='tail.html?processname=%s' %
                                   urllib.quote(processname))
                 anchor.content(processname)
+
+                link_ank = tr_element.findmeld('link_anchor')
+                lurl = item['linkurl']
+                link_ank.attributes(href=lurl)
+                link_ank.content(lurl)
 
                 actions = item['actions']
                 actionitem_td = tr_element.findmeld('actionitem_td')

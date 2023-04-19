@@ -930,6 +930,7 @@ class ServerOptions(Options):
         serverurl = get(section, 'serverurl', None)
         if serverurl and serverurl.strip().upper() == 'AUTO':
             serverurl = None
+        link_description = get(section, 'link_description', None)
 
         # find uid from "user" option
         user = get(section, 'user', None)
@@ -1055,7 +1056,8 @@ class ServerOptions(Options):
                 exitcodes=exitcodes,
                 redirect_stderr=redirect_stderr,
                 environment=environment,
-                serverurl=serverurl)
+                serverurl=serverurl,
+                link_description=link_description)
 
             programs.append(pconfig)
 
@@ -1869,7 +1871,7 @@ class ProcessConfig(Config):
         'stderr_events_enabled', 'stderr_syslog',
         'stopsignal', 'stopwaitsecs', 'stopasgroup', 'killasgroup',
         'exitcodes', 'redirect_stderr' ]
-    optional_param_names = [ 'environment', 'serverurl' ]
+    optional_param_names = [ 'environment', 'serverurl', 'link_description' ]
 
     def __init__(self, options, **params):
         self.options = options
