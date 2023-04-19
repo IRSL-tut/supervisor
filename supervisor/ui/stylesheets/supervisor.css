@@ -78,7 +78,7 @@ html, body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  width: 850px;
+  width: 1250px;
   margin: 0 auto -31px;
 }
 #footer,
@@ -154,9 +154,11 @@ th.desc {
   width: 200px;
 }
 th.name {
-  width: 200px;
+  width: 140px;
 }
 th.action {
+}
+th.linkurl {
 }
 td, th {
   padding: 4px 8px;
